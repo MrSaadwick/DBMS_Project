@@ -1,0 +1,65 @@
+DBMS_Project/
+│
+├── 📄 README.md                          # Main project documentation
+├── 📄 .gitignore                        # Git ignore rules
+│
+├── 📁 Documentation/                    # All project docs (Phase 1-4)
+│   ├── 📄 Project_Requirements.md       # Phase 1: Problem statement & requirements
+│   ├── 📄 ER_Diagram.md                 # Phase 2: ER Diagram explanation
+│   ├── 📄 ER_Diagram.png                # Phase 2: Visual ER Diagram
+│   ├── 📄 Normalization_Steps.md        # Phase 3: 1NF → 2NF → 3NF
+│   └── 📄 Relational_Schema.md          # Phase 4: Final schema design
+│
+├── 📁 SQL_Server_Scripts/               # Main database project folder
+│   │
+│   ├── 📁 Tables/                       # Phase 4-5: Table creation scripts
+│   │   ├── 📄 Guests.sql
+│   │   ├── 📄 RoomTypes.sql
+│   │   ├── 📄 Rooms.sql
+│   │   ├── 📄 Bookings.sql
+│   │   ├── 📄 Payments.sql
+│   │   ├── 📄 Staff.sql
+│   │   ├── 📄 Services.sql
+│   │   └── 📄 BookingServices.sql
+│   │
+│   ├── 📁 Constraints/                  # Foreign keys & constraints
+│   │   ├── 📄 Foreign_Keys.sql
+│   │   └── 📄 Check_Constraints.sql
+│   │
+│   ├── 📁 Sample_Data/                  # Phase 5: Sample data insertion
+│   │   ├── 📄 Insert_Guests.sql
+│   │   ├── 📄 Insert_RoomTypes.sql
+│   │   ├── 📄 Insert_Rooms.sql
+│   │   ├── 📄 Insert_Staff.sql
+│   │   └── 📄 Insert_Services.sql
+│   │
+│   ├── 📁 CRUD_Operations/              # Phase 6: Basic operations
+│   │   ├── 📄 INSERT_Operations.sql
+│   │   ├── 📄 UPDATE_Operations.sql
+│   │   ├── 📄 DELETE_Operations.sql
+│   │   └── 📄 SELECT_Operations.sql
+│   │
+│   ├── 📁 Advanced_SQL/                 # Phase 7: Advanced queries
+│   │   ├── 📄 Aggregate_Queries.sql
+│   │   ├── 📄 Join_Queries.sql
+│   │   ├── 📄 Subqueries.sql
+│   │   ├── 📄 Views.sql                 # Create views
+│   │   └── 📄 Stored_Procedures.sql     # Stored procedures
+│   │
+│   ├── 📁 Database_Setup/               # Initial setup scripts
+│   │   ├── 📄 Create_Database.sql
+│   │   └── 📄 Drop_Database.sql
+│   │
+│   └── 📁 Testing/                      # Test scripts & validation
+│       ├── 📄 Test_Queries.sql
+│       └── 📄 Data_Validation.sql
+│
+├── 📁 Screenshots/                      # Phase 8: Proof of execution
+│   ├── 📁 Table_Creation/
+│   ├── 📁 Query_Results/
+│   ├── 📁 Views_Execution/
+│   └── 📁 Procedures_Execution/
+│
+└── 📁 Reports/                          # Additional reports
+    ├── 📄 Project_Report.docx           # Final comprehensive report
+    └── 📄 Challenges_Reflection.md      # Lessons learned
