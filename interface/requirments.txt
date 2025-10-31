@@ -1,0 +1,7 @@
+Python:
+->
+pyodbc
+pandas
+ttkbootstrap
+tkcalendar
+matplotlib

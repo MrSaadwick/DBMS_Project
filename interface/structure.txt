@@ -1,0 +1,12 @@
+hotel_booking_app/
+├── main.py
+├── database.py
+├── forms/
+│   ├── __init__.py
+│   ├── main_form.py
+│   ├── guests_form.py
+│   ├── bookings_form.py
+│   └── rooms_form.py
+├── models/
+│   └── __init__.py
+└── requirements.txt
