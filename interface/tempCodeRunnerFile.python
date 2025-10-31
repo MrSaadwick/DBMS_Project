@@ -1,0 +1,41 @@
+from database import db
+
+def test_database_connection():
+    print("🧪 Testing Database Connection...")
+    
+    # Test 1: Basic connection
+    try:
+        conn = db.get_connection()
+        if conn:
+            print("✅ Database connection successful!")
+            
+            # Test 2: Check if tables exist
+            tables_query = """
+            SELECT TABLE_NAME 
+            FROM INFORMATION_SCHEMA.TABLES 
+            WHERE TABLE_TYPE = 'BASE TABLE'
+            """
+            tables = db.execute_query(tables_query)
+            
+            print(f"📋 Found {len(tables)} tables:")
+            for table in tables['TABLE_NAME']:
+                print(f"   - {table}")
+            
+            conn.close()
+            return True
+        else:
+            print("❌ Database connection failed!")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return False
+
+if __name__ == "__main__":
+    if test_database_connection():
+        print("\n🎉 Your database connection is working perfectly!")
+        print("🚀 You can now run your main application!")
+    else:
+        print("\n💡 If connection failed, try these connection strings:")
+        print("1. r\"Driver={SQL Server Native Client 11.0};Server=localhost\\SQLEXPRESS;Database=HotelBookingSystem;Trusted_Connection=yes;\"")
+        print("2. r\"Driver={ODBC Driver 17 for SQL Server};Server=localhost\\SQLEXPRESS;Database=HotelBookingSystem;Trusted_Connection=yes;\"")
