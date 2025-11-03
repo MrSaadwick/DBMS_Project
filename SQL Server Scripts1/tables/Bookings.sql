@@ -15,3 +15,44 @@ CREATE TABLE Bookings (
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
     FOREIGN KEY (staff_id) REFERENCES Staff(staff_id)
 );
+-- Run these in SQL Server if you haven't added these columns
+ALTER TABLE Bookings ADD 
+    discount_percent DECIMAL(5,2) DEFAULT 0,
+    discount_amount DECIMAL(10,2) DEFAULT 0,
+    tax_amount DECIMAL(10,2) DEFAULT 0,
+    services_amount DECIMAL(10,2) DEFAULT 0;
+
+    -- Safe column addition - only add if they don't exist
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Bookings' AND COLUMN_NAME = 'discount_percent')
+BEGIN
+    ALTER TABLE Bookings ADD discount_percent DECIMAL(5,2) DEFAULT 0;
+    PRINT 'Added discount_percent column';
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Bookings' AND COLUMN_NAME = 'discount_amount')
+BEGIN
+    ALTER TABLE Bookings ADD discount_amount DECIMAL(10,2) DEFAULT 0;
+    PRINT 'Added discount_amount column';
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Bookings' AND COLUMN_NAME = 'tax_amount')
+BEGIN
+    ALTER TABLE Bookings ADD tax_amount DECIMAL(10,2) DEFAULT 0;
+    PRINT 'Added tax_amount column';
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Bookings' AND COLUMN_NAME = 'services_amount')
+BEGIN
+    ALTER TABLE Bookings ADD services_amount DECIMAL(10,2) DEFAULT 0;
+    PRINT 'Added services_amount column';
+END
+
+-- Verify the table structure
+SELECT 
+    COLUMN_NAME, 
+    DATA_TYPE, 
+    IS_NULLABLE,
+    COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = 'Bookings'
+ORDER BY ORDINAL_POSITION;

@@ -7,3 +7,6 @@ INSERT INTO Guests (first_name, last_name, email, phone, address, id_card_number
 ('Fatima', 'Raza', 'fatima.raza@email.com', '03451234570', 'House 89, Gulberg, Lahore', '3520112345674', '1992-05-18'),
 ('Bilal', 'Hassan', 'bilal.hassan@email.com', '03001234571', 'Suite 12, Clifton, Karachi', '3520112345675', '1987-09-10');
 -- Add 5-10 more guests...
+
+select * from Guests;
+select * from payments;
