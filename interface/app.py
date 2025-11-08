@@ -74,8 +74,7 @@ page = st.sidebar.radio("Go to", [
     "Payment Management", 
     "Services Management",
     "Cancellation Management",
-    "Booking Plans",
-    "Analytics"
+    "Booking Plans"
 ])
 
 # Page routing
@@ -87,8 +86,6 @@ elif page == "Room Management":
     st.switch_page("pages/2_🏨_Room_Management.py")
 elif page == "Booking Management":
     st.switch_page("pages/3_📅_Booking_Management.py")
-elif page == "Analytics":
-    st.switch_page("pages/5_📊_Analytics.py")
 if page == "Payment Management":
     st.switch_page("pages/4_💰_Payment_Management.py")
 elif page == "Services Management":

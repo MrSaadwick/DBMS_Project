@@ -10,3 +10,5 @@ CREATE TABLE Guests (
     created_date DATETIME DEFAULT GETDATE(),
     updated_date DATETIME DEFAULT GETDATE()
 );
+
+select * from guests;

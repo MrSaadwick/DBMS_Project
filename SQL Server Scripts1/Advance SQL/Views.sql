@@ -2,6 +2,10 @@ USE HotelBookingSystem;
 GO
 
 -- 1. View for available rooms
+IF OBJECT_ID('AvailableRooms', 'V') IS NOT NULL
+    DROP VIEW AvailableRooms;
+GO
+
 CREATE VIEW AvailableRooms AS
 SELECT 
     r.room_id,
@@ -15,8 +19,13 @@ SELECT
 FROM Rooms r
 JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id
 WHERE r.status = 'Available';
+GO
 
 -- 2. View for guest booking summary
+IF OBJECT_ID('GuestBookingSummary', 'V') IS NOT NULL
+    DROP VIEW GuestBookingSummary;
+GO
+
 CREATE VIEW GuestBookingSummary AS
 SELECT 
     g.guest_id,
@@ -29,8 +38,13 @@ SELECT
 FROM Guests g
 LEFT JOIN Bookings b ON g.guest_id = b.guest_id
 GROUP BY g.guest_id, g.first_name, g.last_name, g.email, g.phone;
+GO
 
 -- 3. View for monthly revenue report
+IF OBJECT_ID('MonthlyRevenueReport', 'V') IS NOT NULL
+    DROP VIEW MonthlyRevenueReport;
+GO
+
 CREATE VIEW MonthlyRevenueReport AS
 SELECT 
     YEAR(p.payment_date) AS year,
@@ -42,8 +56,13 @@ SELECT
 FROM Payments p
 WHERE p.status = 'Completed'
 GROUP BY YEAR(p.payment_date), MONTH(p.payment_date), DATENAME(MONTH, p.payment_date);
+GO
 
 -- 4. View for room occupancy details
+IF OBJECT_ID('RoomOccupancyDetails', 'V') IS NOT NULL
+    DROP VIEW RoomOccupancyDetails;
+GO
+
 CREATE VIEW RoomOccupancyDetails AS
 SELECT 
     r.room_number,
@@ -55,6 +74,7 @@ FROM Rooms r
 JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id
 LEFT JOIN Bookings b ON r.room_id = b.room_id AND b.status IN ('Checked-Out', 'Checked-In')
 GROUP BY r.room_number, rt.type_name, r.status;
+GO
 
 -- 5. Using the views
 SELECT * FROM AvailableRooms;
