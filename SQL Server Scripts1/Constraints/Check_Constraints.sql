@@ -1,5 +1,5 @@
 -- Additional check constraints for data validation
-
+use HotelBookingSystem;
 -- Drop the existing constraint
 ALTER TABLE Payments DROP CONSTRAINT CHK_Payments_Amount;
 
@@ -54,3 +54,5 @@ CHECK (capacity >= 1);
 ALTER TABLE BookingServices
 ADD CONSTRAINT CHK_BookingServices_Quantity
 CHECK (quantity > 0);
+
+
