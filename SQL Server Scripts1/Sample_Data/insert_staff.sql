@@ -29,3 +29,5 @@ INSERT INTO Staff (first_name, last_name, email, phone, position, department, sa
 ('Hina', 'Saeed', 'hina.saeed@luxuryhotel.com', '03339876558', 'Reservation Agent', 'Reservations', 46000.00, '2023-01-08'),
 ('Imran', 'Javed', 'imran.javed@luxuryhotel.com', '03129876559', 'Security Guard', 'Security', 32000.00, '2022-11-11'),
 ('Sadia', 'Akram', 'sadia.akram@luxuryhotel.com', '03459876560', 'Cleaner', 'Housekeeping', 30000.00, '2023-04-20');
+
+select * from Staff;
