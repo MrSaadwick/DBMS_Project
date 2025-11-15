@@ -1,5 +1,13 @@
 -- Additional check constraints for data validation
 
+-- Drop the existing constraint
+ALTER TABLE Payments DROP CONSTRAINT CHK_Payments_Amount;
+
+-- Add new constraint that includes 'Refund'
+ALTER TABLE Payments 
+ADD CONSTRAINT CHK_Payments_Method 
+CHECK (payment_method IN ('Cash', 'Credit Card', 'Debit Card', 'Online Transfer', 'Refund'));
+
 -- Ensure check_out_date is after check_in_date
 ALTER TABLE Bookings
 ADD CONSTRAINT CHK_Bookings_CheckDates
