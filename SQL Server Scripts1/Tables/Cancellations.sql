@@ -3,7 +3,7 @@ Go
 CREATE TABLE Cancellations (
     cancellation_id INT IDENTITY(1,1) PRIMARY KEY,
     booking_id INT NOT NULL,
-    cancelled_by_staff_id INT NOT NULL,  -- ← ALREADY EXISTS!
+    cancelled_by_staff_id INT NOT NULL, 
     cancelled_by_guest_id INT,
     cancellation_date DATETIME DEFAULT GETDATE(),
     cancellation_reason VARCHAR(100) NOT NULL,
@@ -24,3 +24,4 @@ CREATE TABLE Cancellations (
     FOREIGN KEY (cancelled_by_staff_id) REFERENCES Staff(staff_id),  -- ← FOREIGN KEY EXISTS!
     FOREIGN KEY (cancelled_by_guest_id) REFERENCES Guests(guest_id)
 );
+select * from Cancellations;

@@ -28,7 +28,5 @@ INSERT INTO Bookings (guest_id, room_id, staff_id, check_in_date, check_out_date
 (23, 17, 2, '2025-12-28', '2026-01-03', 67200.00, 'Confirmed', 2, 0, 'Long stay discount'),
 (24, 22, 1, '2025-12-29', '2026-01-01', 90000.00, 'Confirmed', 2, 0, 'Honeymoon package'),
 (25, 23, 2, '2025-12-30', '2026-01-03', 140000.00, 'Confirmed', 3, 0, 'Corporate event');
-
+select * from Rooms;
 select * from Bookings;
-
-
