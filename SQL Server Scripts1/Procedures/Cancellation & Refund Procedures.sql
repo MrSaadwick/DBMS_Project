@@ -1,6 +1,8 @@
 -- Procedure to cancel booking with automatic refund calculation
 USE HotelBookingSystem;
-CREATE PROCEDURE CancelBooking
+GO
+
+CREATE OR ALTER PROCEDURE CancelBooking
     @booking_id INT,
     @staff_id INT,
     @cancellation_reason VARCHAR(100),
@@ -19,17 +21,23 @@ BEGIN
         DECLARE @cancellation_fee DECIMAL(10,2);
         DECLARE @cancellation_type VARCHAR(20);
         DECLARE @room_id INT;
+        DECLARE @guest_id INT;
         
         -- Get booking details
         SELECT 
             @booking_amount = total_amount,
             @check_in_date = check_in_date,
-            @room_id = room_id
+            @room_id = room_id,
+            @guest_id = guest_id
         FROM Bookings 
         WHERE booking_id = @booking_id;
         
         IF @booking_amount IS NULL
             THROW 50001, 'Booking not found', 1;
+        
+        -- Check if booking is already cancelled
+        IF EXISTS (SELECT 1 FROM Bookings WHERE booking_id = @booking_id AND status = 'Cancelled')
+            THROW 50002, 'Booking is already cancelled', 1;
         
         -- Calculate days before check-in
         SET @days_before_checkin = DATEDIFF(HOUR, GETDATE(), @check_in_date) / 24;
@@ -86,15 +94,24 @@ BEGIN
         
         -- Return cancellation details
         SELECT 
+            @booking_id as booking_id,
+            @guest_id as guest_id,
             @refund_amount as refund_amount,
             @cancellation_fee as cancellation_fee,
             @refund_percentage as refund_percentage,
+            @cancellation_type as cancellation_type,
             'Booking cancelled successfully' as message;
             
     END TRY
     BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END TRY
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+        
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
 GO

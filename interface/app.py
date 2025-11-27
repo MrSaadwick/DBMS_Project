@@ -81,16 +81,16 @@ page = st.sidebar.radio("Go to", [
 if page == "Dashboard":
     main_dashboard()
 elif page == "Guest Management":
-    st.switch_page("pages/1_👥_Guest_Management.py")
+    st.switch_page("pages/Guest_Management.py")
 elif page == "Room Management":
-    st.switch_page("pages/2_🏨_Room_Management.py")
+    st.switch_page("pages/Room_Management.py")
 elif page == "Booking Management":
-    st.switch_page("pages/3_📅_Booking_Management.py")
+    st.switch_page("pages/Booking_Management.py")
 if page == "Payment Management":
-    st.switch_page("pages/4_💰_Payment_Management.py")
+    st.switch_page("pages/Payment_Management.py")
 elif page == "Services Management":
-    st.switch_page("pages/5_🛎️_Services_Management.py")
+    st.switch_page("pages/Services_Management.py")
 elif page == "Cancellation Management":
-    st.switch_page("pages/6_❌_Cancellation_Management.py")
+    st.switch_page("pages/Cancellation_Management.py")
 elif page == "Booking Plans":
-    st.switch_page("pages/8_📋_Booking_Plans.py")
+    st.switch_page("pages/Booking_Plans.py")

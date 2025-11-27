@@ -10,15 +10,3 @@ BEGIN
 END;
 GO
 
--- Apply similar triggers to other tables
-CREATE TRIGGER trg_Bookings_UpdateTimestamps
-ON Bookings
-AFTER UPDATE
-AS
-BEGIN
-    UPDATE Bookings 
-    SET updated_date = GETDATE()
-    FROM Bookings b
-    INNER JOIN inserted i ON b.booking_id = i.booking_id
-END;
-GO

@@ -1,6 +1,8 @@
 -- Procedure to create a new booking with services
-use HotelBookingSystem;
-CREATE PROCEDURE CreateBooking
+USE HotelBookingSystem;
+GO
+
+CREATE OR ALTER PROCEDURE CreateBooking
     @guest_id INT,
     @room_id INT,
     @staff_id INT,
@@ -31,6 +33,9 @@ BEGIN
         JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id
         WHERE r.room_id = @room_id;
         
+        IF @room_price IS NULL
+            THROW 50001, 'Room not found or price not set', 1;
+        
         SET @room_total = @room_price * @stay_duration;
         
         -- Calculate services total if provided
@@ -58,22 +63,21 @@ BEGIN
         SET @tax_amount = @taxable_amount * 0.13; -- 13% tax
         SET @grand_total = @taxable_amount + @tax_amount;
         
-        -- Create booking
+        -- Create booking (using only columns that exist in your table)
         INSERT INTO Bookings (
             guest_id, room_id, staff_id, check_in_date, check_out_date,
-            total_amount, adults_count, children_count, special_requests,
-            discount_percent, discount_amount, tax_amount, services_amount
+            total_amount, adults_count, children_count, special_requests
+            -- Removed: discount_percent, discount_amount, tax_amount, services_amount
         )
         VALUES (
             @guest_id, @room_id, @staff_id, @check_in_date, @check_out_date,
-            @grand_total, @adults_count, @children_count, @special_requests,
-            @discount_percent, @discount_amount, @tax_amount, @services_total
+            @grand_total, @adults_count, @children_count, @special_requests
         );
         
         DECLARE @new_booking_id INT = SCOPE_IDENTITY();
         
         -- Add services if provided
-        IF @service_ids IS NOT NULL
+        IF @service_ids IS NOT NULL AND @new_booking_id IS NOT NULL
         BEGIN
             CREATE TABLE #BookingServices (service_id INT, quantity INT);
             
@@ -104,12 +108,22 @@ BEGIN
         SELECT 
             @new_booking_id as booking_id,
             @grand_total as total_amount,
+            @room_total as room_amount,
+            @services_total as services_amount,
+            @tax_amount as tax_amount,
+            @discount_amount as discount_amount,
             'Booking created successfully' as message;
             
     END TRY
     BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END TRY
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+        
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
 GO
